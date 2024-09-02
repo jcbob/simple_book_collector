@@ -36,6 +36,9 @@ def list_all_books():
 
 
 def prompt_read_book():
+    if database.books == []:
+        print("No books in database")
+        return
     read_book = input("Enter the name of the book that you read: ")
     for book in database.books:
         if book["read"]:
@@ -47,6 +50,9 @@ def prompt_read_book():
 
 
 def prompt_unread_book():
+    if database.books == []:
+        print("No books in database")
+        return
     read_book = input("Enter the name of the book you want to 'unread': ")
     for book in database.books:
         if not book["read"]:
@@ -58,6 +64,9 @@ def prompt_unread_book():
 
 
 def delete_book():
+    if database.books == []:
+        print("No books in database")
+        return
     delete_book = input("Enter the name of the book that you want to delete: ")
     database.books = [b for b in database.books if b["name"] != delete_book]
     return
