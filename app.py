@@ -44,8 +44,11 @@ def prompt_read_book():
         return
 
     read_book = input("Enter the name of the book that you read: ")
+    if not database.has_book(read_book):
+        print("There is no such book in the database")
+        return
 
-    for book in database.books:
+    for book in database.get_books():
         if book["read"]:
             print("You have already read this book")
             return
@@ -61,14 +64,17 @@ def prompt_unread_book():
         print("No books in database")
         return
 
-    read_book = input("Enter the name of the book you want to 'unread': ")
+    unread_book = input("Enter the name of the book you want to 'unread': ")
+    if not database.has_book(unread_book):
+        print("There is no such book in the database")
+        return
 
-    for book in database.books:
+    for book in database.get_books():
         if not book["read"]:
             print("You haven't yet read this book - you cannot mark it as unread")
             return
 
-        if book["name"] == read_book:
+        if book["name"] == unread_book:
             book["read"] = False
     return
 
@@ -79,11 +85,11 @@ def prompt_delete_book():
         return
 
     delete_book = input("Enter the name of the book that you want to delete: ")
+    if not database.has_book(delete_book):
+        print("There is no such book in the database")
+        return
 
-    if database.has_book(delete_book):
-        database.delete_book(delete_book)
-    else:
-        print("there is no such book in the database")
+    database.delete_book(delete_book)
     return
 
 
