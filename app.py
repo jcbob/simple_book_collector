@@ -48,14 +48,7 @@ def prompt_read_book():
         print("There is no such book in the database")
         return
 
-    for book in database.get_books():
-        if book["read"]:
-            print("You have already read this book")
-            return
-
-        if book["name"] == read_book:
-            book["read"] = True
-            print(f'Congratulations on reading "{book["name"]}" by {book["author"]}!')
+    database.mark_book_as_read(read_book)
     return
 
 
@@ -69,13 +62,7 @@ def prompt_unread_book():
         print("There is no such book in the database")
         return
 
-    for book in database.get_books():
-        if not book["read"]:
-            print("You haven't yet read this book - you cannot mark it as unread")
-            return
-
-        if book["name"] == unread_book:
-            book["read"] = False
+    database.mark_book_as_unread(unread_book)
     return
 
 

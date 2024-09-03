@@ -20,6 +20,28 @@ def get_books():
     return books
 
 
+def mark_book_as_read(name):
+    for book in books:
+        if book["read"]:
+            print("You have already read this book")
+            return
+
+        if book["name"] == name:
+            book["read"] = True
+            print(f'Congratulations on reading "{book["name"]}" by {book["author"]}!')
+
+
+def mark_book_as_unread(name):
+    for book in books:
+        if not book["read"]:
+            print("You haven't yet read this book - you cannot mark it as unread")
+            return
+
+        if book["name"] == name:
+            book["read"] = False
+            print(f'Successfully unread "{book["name"]}" by {book["author"]}')
+
+
 def has_book(book_to_check):
     for book in books:
         if book["name"] == book_to_check:
@@ -27,11 +49,9 @@ def has_book(book_to_check):
     return False
 
 
-def delete_book(book_to_delete):
-    for book in books:
-        if book_to_delete == book["name"]:
-            books.remove(book)
-            break
+def delete_book(name):
+    global books
+    books = [book for book in books if book["name"] != name]
 
 
 if __name__ == "__main__":
