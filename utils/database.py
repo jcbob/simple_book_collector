@@ -52,6 +52,7 @@ def has_book(book_to_check):
 def delete_book(name):
     global books
     books = [book for book in books if book["name"] != name]
+    print("Successfully deleted the book!")
 
 
 if __name__ == "__main__":

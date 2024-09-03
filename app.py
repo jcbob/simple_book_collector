@@ -25,15 +25,9 @@ def list_all_books():
         return
 
     print("----------------------")
-
     for book in database.get_books():
-        print(f'"{book["name"]}" by {book["author"]}')
-
-        if book["read"]:
-            print("Read")
-        else:
-            print("Not read yet")
-
+        read = "YES" if book["read"] else "NO"
+        print(f'"{book["name"]}" by {book["author"]}\n Read: {read}')
         print("----------------------")
     return
 
