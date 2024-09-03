@@ -46,6 +46,7 @@ def prompt_read_book():
             return
         if book["name"] == read_book:
             book["read"] = True
+            print(f'Congratulations on reading "{book["name"]}" by {book["author"]}!')
     return
 
 
@@ -63,7 +64,7 @@ def prompt_unread_book():
     return
 
 
-def delete_book():
+def prompt_delete_book():
     if database.books == []:
         print("No books in database")
         return
@@ -77,7 +78,7 @@ user_options = {
         'l': list_all_books,
         'r': prompt_read_book,
         'u': prompt_unread_book,
-        'd': delete_book
+        'd': prompt_delete_book
         }
 
 
