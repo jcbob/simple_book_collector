@@ -13,37 +13,43 @@ Your choice: """
 
 
 def prompt_add_book():
-    book_name = input("Enter book name: ")
-    book_author = input("Enter book author: ")
-    new_book = {"name": book_name, "author": book_author, "read": False}
-    database.books.append(new_book)
+    name = input("Enter book name: ")
+    author = input("Enter book author: ")
+    database.add_book(name, author)
     return
 
 
 def list_all_books():
-    if database.books == []:
+    if database.is_empty():
         print("No books in database")
         return
+
     print("----------------------")
-    for book in database.books:
+
+    for book in database.get_books():
         print(f'"{book["name"]}" by {book["author"]}')
+
         if book["read"]:
             print("Read")
         else:
             print("Not read yet")
+
         print("----------------------")
     return
 
 
 def prompt_read_book():
-    if database.books == []:
+    if database.is_empty():
         print("No books in database")
         return
+
     read_book = input("Enter the name of the book that you read: ")
+
     for book in database.books:
         if book["read"]:
             print("You have already read this book")
             return
+
         if book["name"] == read_book:
             book["read"] = True
             print(f'Congratulations on reading "{book["name"]}" by {book["author"]}!')
@@ -51,25 +57,33 @@ def prompt_read_book():
 
 
 def prompt_unread_book():
-    if database.books == []:
+    if database.is_empty():
         print("No books in database")
         return
+
     read_book = input("Enter the name of the book you want to 'unread': ")
+
     for book in database.books:
         if not book["read"]:
             print("You haven't yet read this book - you cannot mark it as unread")
             return
+
         if book["name"] == read_book:
             book["read"] = False
     return
 
 
 def prompt_delete_book():
-    if database.books == []:
+    if database.is_empty():
         print("No books in database")
         return
+
     delete_book = input("Enter the name of the book that you want to delete: ")
-    database.books = [b for b in database.books if b["name"] != delete_book]
+
+    if database.has_book(delete_book):
+        database.delete_book(delete_book)
+    else:
+        print("there is no such book in the database")
     return
 
 
