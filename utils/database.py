@@ -11,7 +11,8 @@ Format of json file:
 
 
 def add_book(name, author):
-    books.append({"name": name, "author": author, "read": False})
+    with open('books.json', 'w') as file:
+        file.writelines({"name": name, "author": author, "read": False})
 
 
 def is_empty():
