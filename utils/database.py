@@ -50,31 +50,32 @@ def is_empty():
         return False
 
 
-
-
 def mark_book_as_read(name):
+    books = get_books()
     for book in books:
-        if book["read"]:
-            print("You have already read this book")
-            return
-
         if book["name"] == name:
+            if book["read"]:
+                print("You have already read this book")
+                return
             book["read"] = True
             print(f'Congratulations on reading "{book["name"]}" by {book["author"]}!')
+    _save_all_books(books)
 
 
 def mark_book_as_unread(name):
+    books = get_books()
     for book in books:
-        if not book["read"]:
-            print("You haven't yet read this book - you cannot mark it as unread")
-            return
-
         if book["name"] == name:
+            if not book["read"]:
+                print("You haven't yet read this book - you cannot mark it as unread")
+                return
             book["read"] = False
             print(f'Successfully unread "{book["name"]}" by {book["author"]}')
+    _save_all_books(books)
 
 
 def has_book(book_to_check):
+    books = get_books()
     for book in books:
         if book["name"] == book_to_check:
             return True
@@ -82,9 +83,10 @@ def has_book(book_to_check):
 
 
 def delete_book(name):
-    global books
+    books = get_books()
     books = [book for book in books if book["name"] != name]
     print("Successfully deleted the book!")
+    _save_all_books(books)
 
 
 if __name__ == "__main__":
