@@ -89,5 +89,6 @@ def menu():
         user_input = input(": ")
 
 
-database.create_book_storage()
+if database.is_empty():
+    database.create_book_storage()
 menu()
