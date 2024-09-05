@@ -2,14 +2,13 @@ import json
 """
 Concerned with storing and retrieving books from a json file
 Format of json file:
-{
- [
+[
   {"name": name1, "author": author1, "read": read1},
   {"name": name2, "author": author2, "read": read2}
- ]
-}
+]
 """
 
+books_file = 'books.json'
 
 def add_book(name, author):
     book = {"name": name, "author": author, "read": False}
@@ -21,7 +20,9 @@ def list_books():
     print("----------------------")
     with open('books.json', 'r') as file:
         books = json.load(file)
+        print(type(books))
         for book in books:
+
             read = "YES" if book["read"] else "NO"
             print(f'"{book["name"]}" by {book["author"]}\n Read: {read}')
             print("----------------------")
