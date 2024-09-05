@@ -12,9 +12,10 @@ books_file = 'books.json'
 
 
 def add_book(name, author):
-    book = {"name": name, "author": author, "read": False}
+    books_list = get_books()
+    books_list.append(f'{"name": {name}, "author": {author}, "read": False}')
     with open(books_file, 'w') as file:
-        json.dump(book, file)
+        json.dump(books_list, file)
 
 
 def list_books():
@@ -80,4 +81,3 @@ if __name__ == "__main__":
     name = "dun"
     author = "don"
     add_book(name, author)
-    list_books()
