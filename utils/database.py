@@ -1,3 +1,4 @@
+import json
 """
 Concerned with storing and retrieving books from a json file
 Format of json file:
@@ -13,6 +14,16 @@ Format of json file:
 def add_book(name, author):
     with open('books.json', 'w') as file:
         file.writelines({"name": name, "author": author, "read": False})
+
+
+def list_books():
+    print("----------------------")
+    with open('books.json', 'r') as file:
+        books = json.load(file)
+        for book in books:
+            read = "YES" if book["read"] else "NO"
+            print(f'"{book["name"]}" by {book["author"]}\n Read: {read}')
+            print("----------------------")
 
 
 def is_empty():
@@ -63,7 +74,4 @@ def delete_book(name):
 
 if __name__ == "__main__":
     add_book("dun", "dun")
-    print(books)
-
-    delete_book("dun")
-    print(books)
+    list_books()
