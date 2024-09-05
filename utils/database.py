@@ -1,8 +1,13 @@
 """
-Concerned with storing and retrieving books from a list
+Concerned with storing and retrieving books from a json file
+Format of json file:
+{
+ [
+  {"name": name1, "author": author1, "read": read1},
+  {"name": name2, "author": author2, "read": read2}
+ ]
+}
 """
-
-books = []
 
 
 def add_book(name, author):
