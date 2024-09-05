@@ -36,15 +36,14 @@ def list_books():
     print("----------------------")
     with open('books.json', 'r') as file:
         books = json.load(file)
-        print(type(books))
         for book in books:
-
             read = "YES" if book["read"] else "NO"
             print(f'"{book["name"]}" by {book["author"]}\n Read: {read}')
             print("----------------------")
 
 
 def is_empty():
+    books = get_books()
     if books == []:
         return True
     else:
@@ -93,3 +92,5 @@ if __name__ == "__main__":
     add_book("dun", "don")
     add_book("bum", "bom")
     add_book("hub", "dub")
+    list_books()
+
