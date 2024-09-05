@@ -11,11 +11,25 @@ Format of json file:
 books_file = 'books.json'
 
 
-def add_book(name, author):
-    books_list = get_books()
-    books_list.append(f'{"name": {name}, "author": {author}, "read": False}')
+def create_book_storage():
     with open(books_file, 'w') as file:
-        json.dump(books_list, file)
+        json.dump([], file)
+
+
+def add_book(name, author):
+    books = get_books()
+    books.append({"name": name, "author": author, "read": False})
+    _save_all_books(books)
+
+
+def get_books():
+    with open(books_file, 'r') as file:
+        return json.load(file)
+
+
+def _save_all_books(books):
+    with open(books_file, 'w') as file:
+        json.dump(books, file)
 
 
 def list_books():
@@ -37,9 +51,6 @@ def is_empty():
         return False
 
 
-def get_books():
-    with open(books_file, 'r') as file:
-        return json.load(file)
 
 
 def mark_book_as_read(name):
@@ -78,6 +89,7 @@ def delete_book(name):
 
 
 if __name__ == "__main__":
-    name = "dun"
-    author = "don"
-    add_book(name, author)
+    create_book_storage()
+    add_book("dun", "don")
+    add_book("bum", "bom")
+    add_book("hub", "dub")

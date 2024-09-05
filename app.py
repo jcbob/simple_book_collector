@@ -24,11 +24,7 @@ def list_all_books():
         print("No books in database")
         return
 
-    print("----------------------")
-    for book in database.get_books():
-        read = "YES" if book["read"] else "NO"
-        print(f'"{book["name"]}" by {book["author"]}\n Read: {read}')
-        print("----------------------")
+    database.list_books()
     return
 
 
@@ -93,4 +89,5 @@ def menu():
         user_input = input(": ")
 
 
+database.create_book_storage()
 menu()
