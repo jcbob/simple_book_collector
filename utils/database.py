@@ -10,9 +10,10 @@ Format of json file:
 
 books_file = 'books.json'
 
+
 def add_book(name, author):
     book = {"name": name, "author": author, "read": False}
-    with open('books.json', 'w') as file:
+    with open(books_file, 'w') as file:
         json.dump(book, file)
 
 
@@ -36,7 +37,8 @@ def is_empty():
 
 
 def get_books():
-    return books
+    with open(books_file, 'r') as file:
+        return json.load(file)
 
 
 def mark_book_as_read(name):
