@@ -12,8 +12,9 @@ Format of json file:
 
 
 def add_book(name, author):
+    book = {"name": name, "author": author, "read": False}
     with open('books.json', 'w') as file:
-        file.writelines({"name": name, "author": author, "read": False})
+        json.dump(book, file)
 
 
 def list_books():
@@ -73,5 +74,7 @@ def delete_book(name):
 
 
 if __name__ == "__main__":
-    add_book("dun", "dun")
+    name = "dun"
+    author = "don"
+    add_book(name, author)
     list_books()
