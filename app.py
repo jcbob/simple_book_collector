@@ -80,6 +80,7 @@ user_options = {
 
 
 def menu():
+    database.create_book_table()
     user_input = input(USER_CHOICE)
     while user_input != 'q':
         if user_input in user_options:
@@ -89,6 +90,6 @@ def menu():
         user_input = input(": ")
 
 
-if database.is_empty():
-    database.create_book_storage()
+# if database.is_empty():
+#    database.create_book_storage()
 menu()

@@ -1,4 +1,4 @@
-import sqlite3
+import json
 """
 Concerned with storing and retrieving books from a json file
 Format of json file:
@@ -11,14 +11,9 @@ Format of json file:
 books_file = 'books.json'
 
 
-def create_book_table():
-    connection = sqlite3.connect('data.db')
-    cursor = connection.cursor()
-
-    cursor.execute("CREATE TABLE books(name text primary key, author text, read integer)")
-
-    connection.commit()
-    connection.close()
+def create_book_storage():
+    with open(books_file, 'w') as file:
+        json.dump([], file)
 
 
 def add_book(name, author):
@@ -95,7 +90,7 @@ def delete_book(name):
 
 
 if __name__ == "__main__":
-    create_book_table()
+    create_book_storage()
     add_book("dun", "don")
     add_book("bum", "bom")
     add_book("hub", "dub")
