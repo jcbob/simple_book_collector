@@ -1,14 +1,7 @@
 import sqlite3
 """
-Concerned with storing and retrieving books from a json file
-Format of json file:
-[
-  {"name": name1, "author": author1, "read": read1},
-  {"name": name2, "author": author2, "read": read2}
-]
+Concerned with storing and retrieving books from a database
 """
-
-books_file = 'books.json'
 
 
 def create_book_table():
@@ -32,13 +25,14 @@ def add_book(name, author):
 
 
 def get_books():
-    with open(books_file, 'r') as file:
-        return json.load(file)
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()
 
+    cursor.execute("SELECT * FROM books")
+    books = [{"name": row[0], "author": row[1], "read": row[2]} for row in cursor.fetchall()]
 
-def _save_all_books(books):
-    with open(books_file, 'w') as file:
-        json.dump(books, file)
+    connection.close()
+    return books
 
 
 def list_books():
@@ -60,27 +54,21 @@ def is_empty():
 
 
 def mark_book_as_read(name):
-    books = get_books()
-    for book in books:
-        if book["name"] == name:
-            if book["read"]:
-                print("You have already read this book")
-                return
-            book["read"] = True
-            print(f'Congratulations on reading "{book["name"]}" by {book["author"]}!')
-    _save_all_books(books)
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()
+
+    cursor.execute("UPDATE books SET read=1 WHERE name=?", (name,))
+    connection.commit()
+    connection.close()
 
 
 def mark_book_as_unread(name):
-    books = get_books()
-    for book in books:
-        if book["name"] == name:
-            if not book["read"]:
-                print("You haven't yet read this book - you cannot mark it as unread")
-                return
-            book["read"] = False
-            print(f'Successfully unread "{book["name"]}" by {book["author"]}')
-    _save_all_books(books)
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()
+
+    cursor.execute("UPDATE books SET read=0 WHERE name=?", (name,))
+    connection.commit()
+    connection.close()
 
 
 def has_book(book_to_check):
@@ -92,10 +80,12 @@ def has_book(book_to_check):
 
 
 def delete_book(name):
-    books = get_books()
-    books = [book for book in books if book["name"] != name]
-    print("Successfully deleted the book!")
-    _save_all_books(books)
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()
+
+    cursor.execute("DELETE FROM books WHERE name=?", (name,))
+    connection.commit()
+    connection.close()
 
 
 if __name__ == "__main__":
