@@ -35,16 +35,6 @@ def get_books():
     return books
 
 
-def list_books():
-    print("----------------------")
-    with open('books.json', 'r') as file:
-        books = json.load(file)
-        for book in books:
-            read = "YES" if book["read"] else "NO"
-            print(f'"{book["name"]}" by {book["author"]}\n Read: {read}')
-            print("----------------------")
-
-
 def is_empty():
     books = get_books()
     if books == []:

@@ -24,7 +24,10 @@ def list_all_books():
         print("No books in database")
         return
 
-    database.list_books()
+    books = database.get_books()
+    for book in books:
+        read = 'YES' if book['read'] else 'NO'
+        print(f"{book['name']} by {book['author']}, read: {read}")
     return
 
 
